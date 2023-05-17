@@ -1,0 +1,226 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Windows;
+using Microsoft.Azure.Kinect.BodyTracking;
+using Microsoft.Azure.Kinect.Sensor;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RosBridge.Client;
+using RosBridge.Client.MessageTypes.Sensor;
+using RosBridge.Client.Protocols;
+
+namespace KinectSkeletonTracking
+{
+    public partial class MainWindow : Window
+    {
+        private List<Device> devices;
+        private List<Tracker> trackers;
+        private bool isRosConnected;
+        private RosSocket rosSocket;
+        private List<Thread> trackingThreads;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            devices = new List<Device>();
+            trackers = new List<Tracker>();
+            isRosConnected = false;
+            trackingThreads = new List<Thread>();
+
+            InitializeDevices();
+        }
+
+        private void InitializeDevices()
+        {
+            int deviceCount = Device.GetInstalledCount();
+            for (int i = 0; i < deviceCount; i++)
+            {
+                Device device = Device.Open(i);
+                devices.Add(device);
+
+                var config = new TrackerConfiguration
+                {
+                    SensorOrientation = device.GetCalibration().DepthModeToCameraOrientation(),
+                    ProcessingMode = TrackerProcessingMode.Gpu,
+                    SensorOrientationDevice = device.GetCalibration().DepthModeToCameraOrientation()
+                };
+
+                Tracker tracker = Tracker.Create(config);
+                trackers.Add(tracker);
+
+                device.StartCameras(new DeviceConfiguration
+                {
+                    ColorFormat = ImageFormat.ColorBGRA32,
+                    ColorResolution = ColorResolution.R720p,
+                    DepthMode = DepthMode.NFOV_Unbinned,
+                    SynchronizedImagesOnly = true
+                });
+
+                device.GetCalibration().TryGetCameraCalibration(
+                    config.DepthMode, config.ColorResolution, out var depthCameraCalibration);
+
+                tracker.SetDepthCameraCalibration(depthCameraCalibration);
+
+                Thread thread = new Thread(() => StartTracking(device, tracker));
+                trackingThreads.Add(thread);
+            }
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ConnectToRosBridge("ws://192.168.1.1:9090");
+        }
+
+        private async void ConnectToRosBridge(string serverUrl)
+        {
+            try
+            {
+                rosSocket = new RosSocket(new WebSocketNetProtocol(serverUrl));
+                await rosSocket.StartAsync();
+                isRosConnected = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!! Could not connect to the ROS bridge server",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                isRosConnected = false;
+            }
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            foreach (Device device in devices)
+            {
+                device.StopCameras();
+                device.Dispose();
+            }
+
+            foreach (Tracker tracker in trackers)
+            {
+                tracker.Shutdown();
+                tracker.Dispose();
+            }
+
+            if (rosSocket != null)
+            {
+                rosSocket.Dispose();
+            }
+        }
+
+        private void PublishSkeletonData(Device device, Frame frame)
+        {
+            var skeletonData = new SkeletonData();
+            skeletonData.Header.FrameId = $"sensor_windows_{device.SerialNum}";
+
+            for (uint bodyIndex = 0; bodyIndex < frame.NumberOfBodies; bodyIndex++)
+            {
+                var skeleton = frame.GetBodySkeleton(bodyIndex);
+                var bodyId = frame.GetBodyId(bodyIndex);
+
+                var body = new Body();
+                body.TrackingId = (int)bodyId;
+
+                for (int jointIndex = 0; jointIndex < (int)JointId.Count; jointIndex++)
+                {
+                    var joint = skeleton.GetJoint((JointId)jointIndex);
+                    body.Joints[jointIndex] = new Joint
+                    {
+                        JointType = (int)joint.JointId,
+                        Position = new Point3D
+                        {
+                            X = joint.Position.X,
+                            Y = joint.Position.Y,
+                            Z = joint.Position.Z
+                        },
+                        Confidence = joint.ConfidenceLevel.ToString()
+                    };
+                }
+
+                skeletonData.Bodies.Add(body);
+            }
+
+            var json = JsonConvert.SerializeObject(skeletonData);
+            var message = new Message
+            {
+                op = "publish",
+                topic = $"/kinect_skeleton_{device.SerialNum}",
+                msg = JObject.Parse(json)
+            };
+
+            rosSocket.Send(message);
+        }
+
+        private void StartTracking(Device device, Tracker tracker)
+        {
+            while (true)
+            {
+                using (var capture = device.GetCapture())
+                {
+                    var depthImage = capture.Depth;
+
+                    tracker.EnqueueCapture(capture);
+
+                    using (var frame = tracker.PopResult())
+                    {
+                        if (frame != null && isRosConnected)
+                        {
+                            PublishSkeletonData(device, frame);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Thread thread in trackingThreads)
+            {
+                thread.Start();
+            }
+        }
+    }
+
+    internal class SkeletonData
+    {
+        public Header Header { get; set; }
+        public List<Body> Bodies { get; set; }
+
+        public SkeletonData()
+        {
+            Header = new Header();
+            Bodies = new List<Body>();
+        }
+    }
+
+    internal class Header
+    {
+        public string FrameId { get; set; }
+    }
+
+    internal class Body
+    {
+        public int TrackingId { get; set; }
+        public Joint[] Joints { get; set; }
+
+        public Body()
+        {
+            Joints = new Joint[(int)JointId.Count];
+        }
+    }
+
+    internal class Joint
+    {
+        public int JointType { get; set; }
+        public Point3D Position { get; set; }
+        public string Confidence { get; set; }
+    }
+
+    internal class Point3D
+    {
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
+    }
+}
