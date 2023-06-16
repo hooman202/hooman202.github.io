@@ -15,8 +15,8 @@ main:
 #  - title: "Blog Posts"
 #    url: /year-archive/
     
-#  - title: "CV"
-#    url: /cv/
+  - title: "CV"
+    url: https://hooman202.github.io/files/CV/Hooman_Hedayati_CV.pdf
     
 #  - title: "Guide"
 #    url: /markdown/
