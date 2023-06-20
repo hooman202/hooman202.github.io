@@ -73,10 +73,9 @@ social:
 
 # Analytics
 analytics:
-  provider               :  "google-gtag"
+  provider               :  "google-analytics-4"
   google:
     tracking_id          : "G-24LQ3N1QVH"
-    annoymize_id         : false
 
 
 # Site Author
