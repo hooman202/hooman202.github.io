@@ -15,7 +15,7 @@ function displayLatestNews(newsData) {
 
       // Create elements for the news item
       const newsDiv = document.createElement("div");
-      const titlePara = document.createElement("p");
+      const titlePara = document.createElement("span");
 
       // Set the text content and styling of the elements
       titlePara.innerHTML = `<b>[${newsItem.date}]: </b> ${newsItem.title}`;
