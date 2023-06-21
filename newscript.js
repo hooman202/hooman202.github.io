@@ -12,12 +12,14 @@ function displayLatestNews(newsData) {
     // Iterate over the sorted news items and generate HTML markup
     for (let i = 0; i < sortedNews.length; i++) {
       const newsItem = sortedNews[i];
-  
+
       // Create elements for the news item
       const newsDiv = document.createElement("div");
-      const titleHeading = document.createElement("h2");
-      const datePara = document.createElement("p");
-      const contentPara = document.createElement("p");
+      const titlePara = document.createElement("p");
+
+      // Set the text content and styling of the elements
+      titlePara.innerHTML = `[<span class="bold">${newsItem.dataPara}</span>] ${newsItem.title}`;
+
   
       // Set the text content of the elements
       titleHeading.textContent = newsItem.title;
@@ -25,9 +27,7 @@ function displayLatestNews(newsData) {
       contentPara.textContent = newsItem.content;
   
       // Append the elements to the news container
-      newsDiv.appendChild(titleHeading);
-      newsDiv.appendChild(datePara);
-      newsDiv.appendChild(contentPara);
+      newsDiv.appendChild(titlePara);
       newsContainer.appendChild(newsDiv);
     }
   }
@@ -37,7 +37,7 @@ function displayLatestNews(newsData) {
     .then(response => response.json())
     .then(data => {
       // Call the function to display the latest news with the fetched data
-      displayLatestNews(data);
+    //   displayLatestNews(data);
     })
     .catch(error => {
       console.log("Hooman : Error fetching news data:", error);

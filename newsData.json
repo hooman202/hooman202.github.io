@@ -1,12 +1,12 @@
 [
   {
-    "title": "Breaking News 1",
-    "date": "2023-06-19",
-    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    "date": "2023-03-01",
+    "title": "One paper submitted to IROS 2023",
+    "content": ""
   },
   {
-    "title": "Breaking News 2",
-    "date": "2023-06-18",
-    "content": "Nulla facilisi. Vestibulum tincidunt ante ac urna commodo."
+    "date": "2023-06-10",
+    "title": "One paper submitted to HAI 2023",
+    "content": ""
   }
 ]
