@@ -21,10 +21,10 @@ function displayLatestNews(newsData) {
       titlePara.innerHTML = `[<span class="bold">${newsItem.dataPara}</span>] ${newsItem.title}`;
 
   
-      // Set the text content of the elements
-      titleHeading.textContent = newsItem.title;
-      datePara.textContent = newsItem.date;
-      contentPara.textContent = newsItem.content;
+    //   // Set the text content of the elements
+    //   titleHeading.textContent = newsItem.title;
+    //   datePara.textContent = newsItem.date;
+    //   contentPara.textContent = newsItem.content;
   
       // Append the elements to the news container
       newsDiv.appendChild(titlePara);
