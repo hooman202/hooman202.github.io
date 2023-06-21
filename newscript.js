@@ -37,7 +37,7 @@ function displayLatestNews(newsData) {
     .then(response => response.json())
     .then(data => {
       // Call the function to display the latest news with the fetched data
-    //   displayLatestNews(data);
+       displayLatestNews(data);
     })
     .catch(error => {
       console.log("Hooman : Error fetching news data:", error);
