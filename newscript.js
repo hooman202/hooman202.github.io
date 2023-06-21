@@ -17,18 +17,12 @@ function displayLatestNews(newsData) {
       const newsDiv = document.createElement("div");
       const titlePara = document.createElement("p");
 
-
-    //   // Set the text content of the elements
-    //   titleHeading.textContent = newsItem.title;
-    //   datePara.textContent = newsItem.date;
-    //   contentPara.textContent = newsItem.content;
-  
-
       // Set the text content and styling of the elements
-      titlePara.innerHTML = `[<b>${newsItem.date}</b>]: ${newsItem.title}<p>`;
+      titlePara.innerHTML = `<b>[${newsItem.date}]: </b> ${newsItem.title}`;
 
       // Append the elements to the news container
       newsDiv.appendChild(titlePara);
+      newsContainer.appendChild(newsDiv);
     }
   }
   
