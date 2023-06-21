@@ -25,11 +25,10 @@ function displayLatestNews(newsData) {
   
 
       // Set the text content and styling of the elements
-      titlePara.innerHTML = `[<span class="bold">${newsItem.date}</span>]: ${newsItem.title}`;
+      titlePara.innerHTML = `[<b>${newsItem.date}</b>]: ${newsItem.title}<p>`;
 
       // Append the elements to the news container
       newsDiv.appendChild(titlePara);
-      newsContainer.appendChild(newsDiv);
     }
   }
   
