@@ -83,14 +83,14 @@ author:
   name             : "Hooman Hedayati"
   avatar           : "Hooman-image.jpg"
   bio              : "ヘデーアッティー・フーマン<br>Post-doc Researcher"
-#  location         : "Kyoto, Japan"
+  location         : 
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=qA5TmygAAAAJ&hl=en&oi=ao"
   email            :
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   github           : "academicpages"
-#  orcid            : "http://orcid.org/yourorcidurl"     :
-#  stackoverflow    : # http://stackoverflow.com/users/123456/username
+  orcid            :
+  stackoverflow    : 
   twitter          : "hooman202"
   youtube          :
   wikipedia        :

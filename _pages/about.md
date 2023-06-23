@@ -13,25 +13,3 @@ redirect_from:
 ## News
 <div id="news-container"></div> 
 <script src="newscript.js"></script>
-
-
-
-
-<style>
-table, td, th, tr {
-   border: none;
-}
-thead {
-   background-color: rgba(0, 0, 0, 0.0);
-   border-bottom: 0px;
-}
-tr.border-bottom {
-   border-bottom: 0px;
-}
-</style>
-
-| [![](../images/Programming.png)](/portfolio/portfolio-1) | [![](../images/20180824_Robotics_112-980x608.jpg)](/portfolio/portfolio-2) |
-| :-: | :-: |
-| **[HRI Design Tools]((/portfolio/portfolio-1))** | **[Human-Robot Collaboration](/portfolio/portfolio-2)** | 
-| [![](../images/Educational-Robots.png)](/portfolio/portfolio-3) | [![](../images/TBI-Research.jpg)](/portfolio/portfolio-4) |
-| **[Building Social Companions](/portfolio/portfolio-3)** | **[Supporting Social Participation](/portfolio/portfolio-4)** |
