@@ -6,10 +6,11 @@ author_profile: true
 ---
 
 You can also find my articles on <a href="{{author.googlescholar}}">my Google Scholar profile
-test 2
+test 3
 
 
-<link rel="stylesheet" href="assets/css/publication.css">
+
+<link rel="stylesheet" href="{{ "/assets/css/publication.css" | relative_url }}">
 
   <div class="publication">
     <img src="/images/ar-and-robotics.jpg" alt="Publication 1">
