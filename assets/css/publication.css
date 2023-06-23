@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .publication {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .publication img {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .conference {
+    background-color: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .authors {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .details {
+    font-size: 12px;
+  }
+
+  .acceptance-rate {
+    color: red;
+  }
