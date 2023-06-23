@@ -8,10 +8,9 @@ author_profile: true
 You can also find my articles on <a href="{{author.googlescholar}}">my Google Scholar profile
 
 
-<body>
+
 <link rel="stylesheet" href="assets/css/publication.css">
 
-<div class="publication">
   <div class="publication">
     <img src="images/ar-and-robotics.jpg" alt="Publication 1">
     <div class="info">
@@ -145,4 +144,3 @@ You can also find my articles on <a href="{{author.googlescholar}}">my Google Sc
   <!-- Add more publications following the same structure -->
 
 </div>
-</body>
