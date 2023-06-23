@@ -12,4 +12,5 @@ redirect_from:
 
 ## News
 <div id="news-container"></div> 
-<script src="newscript.js"></script>
+<script src="assets/js/newscript.js"></script>
+<script src="./a>
