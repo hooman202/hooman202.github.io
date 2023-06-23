@@ -34,5 +34,5 @@ function displayLatestNews(newsData) {
        displayLatestNews(data);
     })
     .catch(error => {
-      console.log("Hooman : Error fetching news data:", error);
+      console.log("Error fetching news data:", error);
     });
