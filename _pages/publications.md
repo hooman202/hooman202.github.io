@@ -12,7 +12,7 @@ test 2
 <link rel="stylesheet" href="assets/css/publication.css">
 
   <div class="publication">
-    <img src="images/ar-and-robotics.jpg" alt="Publication 1">
+    <img src="/images/ar-and-robotics.jpg" alt="Publication 1">
     <div class="info">
       <div class="conference">ACM CHI'22</div>
       <div class="title">Augmented Reality and Robotics: A Survey and Taxonomy for AR-enhanced Human-Robot Interaction and Robotic Interfaces</div>
