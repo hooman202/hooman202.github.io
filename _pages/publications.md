@@ -5,12 +5,10 @@ permalink: /publications/
 author_profile: true
 ---
 
-You can also find my articles on <u><a href="{{author.googlescholar}}">my Google Scholar profile
-
-<iframe src="news.html" frameborder="0"></iframe>
-<hr>
+You can also find my articles on <a href="{{author.googlescholar}}">my Google Scholar profile
 
 
+<body>
 <link rel="stylesheet" href="assets/css/publication.css">
 
 <div class="publication">
@@ -147,3 +145,4 @@ You can also find my articles on <u><a href="{{author.googlescholar}}">my Google
   <!-- Add more publications following the same structure -->
 
 </div>
+</body>
