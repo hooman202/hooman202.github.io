@@ -7,8 +7,12 @@ author_profile: true
 
 You can also find my articles on <u><a href="{{author.googlescholar}}">my Google Scholar profile
 
+<iframe src="news.html" frameborder="0"></iframe>
+<hr>
+
 
 <link rel="stylesheet" href="assets/css/publication.css">
+
 <div class="publication">
   <div class="publication">
     <img src="images/ar-and-robotics.jpg" alt="Publication 1">
